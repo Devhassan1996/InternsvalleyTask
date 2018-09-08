@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <!-- <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button> -->
+    <ion-title>Bringmeister</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="royal" (click)="goToCart()">
+        <ion-icon name="cart"></ion-icon>
+        <ion-badge item-end>{{cart.total | currency}}</ion-badge>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let product of list">
+    <img [src]="product.images.list['200']"/>
+    <ion-card-content>
+      <ion-card-title>
+        {{product.name}}
+        </ion-card-title>
+        <button ion-button ion-button item-end block disabled >{{product.prices.price}} $ </button>
+      <p>
+        The most popular industrial group ever, and largely
+        responsible for bringing the music to a mass audience.
+      </p>
+      <ion-buttons>
+      <button ion-button *ngIf="IsBought(product)" (click)="removeQuantity(product)" > <ion-icon name="remove"></ion-icon></button>
+      <button ion-button *ngIf="IsBought(product)" disabled="true">{{product.quantity}}</button>
+      <button ion-button *ngIf="!IsBought(product) && product.isAvailable" (click)="addToCart(product)" block>Buy</button>
+      <button ion-button *ngIf="IsBought(product)" (click)="addQuantity(product)"> <ion-icon name="add"></ion-icon></button>
+      <button ion-button *ngIf="IsBought(product)" color="danger"  (click)="removeFromCart(product)">remove</button>
+     
+    </ion-buttons>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

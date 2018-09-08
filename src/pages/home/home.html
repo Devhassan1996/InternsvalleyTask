@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+   
+    <ion-title>Shopping List</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only color="royal">
+          <ion-icon name="cart"></ion-icon>
+          <ion-badge item-end>{{cartPrvd.total | currency}}</ion-badge>
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h1 *ngIf="cartPrvd.cart.length < 1">The cart is empty!</h1>
+  <ion-item-group *ngFor="let obj of cartPrvd.cart">
+    <ion-item-divider color="light">{{obj.category}}</ion-item-divider>
+    <ion-card *ngFor="let product of obj.products">
+        <img [src]="product.images.list['200']"/>
+
+        <ion-card-content>
+          <ion-card-title>
+            {{product.name}}
+            </ion-card-title>
+            <button ion-button ion-button item-end block disabled="true"  >product price {{product.prices.price}}  </button>
+          <p>
+            The most popular industrial group ever, and largely
+            responsible for bringing the music to a mass audience.
+            
+          </p>
+          
+          <button ion-button *ngIf="IsBought(product)" (click)="removeQuantity(product)" > <ion-icon name="remove"></ion-icon></button>
+          <button ion-button *ngIf="IsBought(product)" disabled="true">{{product.quantity}}</button>
+          <button ion-button *ngIf="IsBought(product)" (click)="addQuantity(product)"> <ion-icon name="add"></ion-icon></button>
+          <button ion-button *ngIf="IsBought(product)" color="danger"  (click)="removeFromCart(product)">remove</button>
+         
+        </ion-card-content>
+      </ion-card>
+  </ion-item-group>
+
+  
+</ion-content>
